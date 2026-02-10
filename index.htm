@@ -23,7 +23,6 @@
       text-align: center;
       min-height: 80vh;
       background: rgba(0,0,0,0.6);
-      margin: 0;
     }
     h1.glitch {
       font-family: 'Press Start 2P', cursive;
@@ -204,4 +203,25 @@
         p.x += p.dx;
         p.y += p.dy;
         if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Scroll reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    });
+    document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
+
+    // Message form simulation
