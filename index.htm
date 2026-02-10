@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Zex42Dev Portfolio</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 60px;
+      text-align: center;
+    }
+
+    h1.glitch {
+      font-size: 4em;
+      color: #0ff;
+      text-shadow: 2px 2px #f0f, -2px -2px #ff0;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px #f0f; }
+      25% { text-shadow: -2px -2px #0ff; }
+      50% { text-shadow: 2px -2px #ff0; }
+      75% { text-shadow: -2px 2px #f0f; }
+      100% { text-shadow: 2px 2px #0ff; }
+    }
+
+    .tagline {
+      font-size: 1.5em;
+      color: #ff0;
+      margin-top: 10px;
+      animation: flicker 2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+      }
+      20%, 24%, 55% {
+        opacity: 0.3;
+      }
+    }
+
+    .skill {
+      margin: 10px;
+      padding: 15px;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 10px #0ff;
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .skill:hover {
+      transform: scale(1.2) rotate(5deg);
+      box-shadow: 0 0 20px #f0f;
+    }
+
+    .project-card {
+      margin: 20px;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #f0f;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .project-card:hover {
+      transform: skew(-5deg) scale(1.1);
+      background: rgba(255,0,255,0.2);
+    }
+
+    button {
+      background: #0ff;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #f0f;
+    }
+
+    .warning {
+      color: #ff0;
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    .links a {
+      margin: 10px;
+      color: #0ff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .links a:hover {
+      color: #f0f;
+    }
+
+    /* Crazy background animation */
+    .background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle, #0ff 0%, #000 70%);
+      animation: pulse 5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { filter: hue-rotate(0deg); }
+      to { filter: hue-rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <!-- Hero -->
+  <section id="hero">
+    <h1 class="glitch">Zex42Dev</h1>
+    <p class="tagline">Reward: 42 commits of chaos</p>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>Who Am I?</h2>
+    <p>I conjure thumbnails, craft websites, and occasionally break the internet. Advanced dev wizard at your service.</p>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2>Skill Reactors</h2>
+    <div class="skill">HTML Reactor: 100%</div>
+    <div class="skill">CSS Reactor: 95%</div>
+    <div class="skill">React Core: 85%</div>
+    <div class="skill">Thumbnail Sorcery: MAX</div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project-card">Cyberpunk Portfolio</div>
+    <div class="project-card">Thumbnail Generator 3000</div>
+    <div class="project-card">Chaos Engine Website</div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Access Terminal</h2>
+    <form onsubmit="alert('Message transmitted to Zex42Dev!'); return false;">
+      <label>Name:</label><br>
+      <input type="text" placeholder="Enter your alias"><br><br>
+      <label>Message:</label><br>
+      <textarea placeholder="Type your encrypted message"></textarea><br><br>
+      <button type="submit">Transmit</button>
+    </form>
+    <p class="warning">Unauthorized access may result in infinite loops.</p>
+    <div class="links">
+      <a href="https://github.com/zex42dev">GitHub</a>
+      <a href="https://discord
