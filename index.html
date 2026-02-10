@@ -1,125 +1,538 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Zex42Dev Portfolio — Test</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Press+Start+2P&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zex42Dev – Glitchy Portfolio</title>
+  <!-- Preload profile image for instant display -->
+  <link rel="preload" as="image" href="/assets/profile.jpg">
   <style>
-    /* Basic layout and styles */
-    html,body { height:100%; margin:0; background:#000; color:#fff; font-family:'Rajdhani',sans-serif; }
-    canvas#particles { position:fixed; inset:0; width:100%; height:100%; z-index:-1; display:block; }
-    section { padding:80px 20px; text-align:center; min-height:70vh; box-sizing:border-box; }
-    h1.glitch { font-family:'Press Start 2P',cursive; font-size:4.2rem; color:#0ff; text-shadow:0 0 12px #0ff,0 0 24px #f0f; animation:glitch 1s infinite; margin:0; }
-    @keyframes glitch { 0%{text-shadow:2px 2px #f0f;}25%{text-shadow:-2px -2px #0ff;}50%{text-shadow:2px -2px #ff0;}75%{text-shadow:-2px 2px #f0f;}100%{text-shadow:2px 2px #0ff;} }
-    .tagline { font-size:1.2rem; color:#ff0; margin-top:10px; animation:flicker 2s infinite; }
-    @keyframes flicker { 0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}20%,24%,55%{opacity:0.3;} }
-    .profile-pic { width:220px; height:220px; border-radius:50%; border:4px solid #0ff; box-shadow:0 0 20px #f0f; margin:28px auto; display:block; transition:transform .6s ease, box-shadow .6s ease, filter .6s ease; }
-    .profile-pic:hover { transform:scale(1.28) rotate(12deg); box-shadow:0 0 60px #ff0,0 0 90px #f0f; filter:hue-rotate(160deg); }
-    .info-panel { max-width:760px; margin:18px auto 0; font-size:1.05rem; line-height:1.6; color:#fff; text-align:center; }
-    .price-card { display:inline-block; margin:14px; padding:18px 22px; border:3px dashed #ff0; background:rgba(255,255,255,0.02); font-family:'Orbitron',sans-serif; font-size:1.05rem; animation:pulse 2.2s infinite; }
-    @keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.04);}100%{transform:scale(1);} }
-    .links a { color:#0ff; text-decoration:none; margin:8px; display:inline-block; font-family:'Orbitron',sans-serif; }
-    /* small screens */
-    @media (max-width:640px) {
-      h1.glitch { font-size:2.2rem; }
-      .profile-pic { width:160px; height:160px; }
+    /* === Reset and Base Styles === */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      background: #18181c;
+      color: #f8f8ff;
+      min-height: 100vh;
+      /* Fallback background color for particle canvas */
+      background-color: #18181c;
+      overflow-x: hidden;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    a {
+      color: #8cf;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover, a:focus {
+      color: #fff;
+      outline: none;
+    }
+
+    /* === Particle Background Container === */
+    #particles-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      background: #18181c;
+      pointer-events: none;
+      transition: background 0.2s;
+    }
+
+    /* === Hero Section === */
+    header.hero {
+      position: relative;
+      z-index: 2;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 7vh;
+      text-align: center;
+      background: transparent;
+    }
+    .glitch {
+      position: relative;
+      display: inline-block;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #f8f8ff;
+      text-shadow: 0 0 0.08em #fff8, 0 0 0.2em #8cf4;
+      --accent-red: #ff003c;
+      --accent-cyan: #00e6ff;
+      --intensity: 1;
+      animation: glitch-shake 2.2s steps(12, end) infinite;
+      filter: saturate(1.1);
+      user-select: none;
+    }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      font: inherit;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: screen;
+    }
+    .glitch::before {
+      color: var(--accent-red);
+      text-shadow: -1px 0 2px var(--accent-red);
+      transform: translateX(1.5px);
+      animation: glitch-clip-red 1.6s steps(20, end) infinite;
+    }
+    .glitch::after {
+      color: var(--accent-cyan);
+      text-shadow: 1px 0 2px var(--accent-cyan);
+      transform: translateX(-1.5px);
+      animation: glitch-clip-cyan 1.9s steps(24, end) infinite;
+    }
+    @keyframes glitch-shake {
+      0%   { transform: translate(0, 0);}
+      25%  { transform: translate(1px, -1px);}
+      50%  { transform: translate(-1px, 1px);}
+      75%  { transform: translate(0.5px, 0.5px);}
+      100% { transform: translate(0, 0);}
+    }
+    @keyframes glitch-clip-red {
+      0%   { clip-path: polygon(0 2%,100% 2%,100% 8%,0 8%); }
+      10%  { clip-path: polygon(0 15%,100% 15%,100% 22%,0 22%);}
+      20%  { clip-path: polygon(0 35%,100% 35%,100% 41%,0 41%);}
+      30%  { clip-path: polygon(0 58%,100% 58%,100% 65%,0 65%);}
+      40%  { clip-path: polygon(0 75%,100% 75%,100% 82%,0 82%);}
+      50%  { clip-path: polygon(0 5%,100% 5%,100% 12%,0 12%);}
+      60%  { clip-path: polygon(0 28%,100% 28%,100% 34%,0 34%);}
+      70%  { clip-path: polygon(0 48%,100% 48%,100% 54%,0 54%);}
+      80%  { clip-path: polygon(0 68%,100% 68%,100% 74%,0 74%);}
+      90%  { clip-path: polygon(0 85%,100% 85%,100% 92%,0 92%);}
+      100% { clip-path: polygon(0 0,100% 0,100% 100%,0 100%);}
+    }
+    @keyframes glitch-clip-cyan {
+      0%   { clip-path: polygon(0 10%,100% 10%,100% 16%,0 16%);}
+      12%  { clip-path: polygon(0 32%,100% 32%,100% 38%,0 38%);}
+      24%  { clip-path: polygon(0 55%,100% 55%,100% 62%,0 62%);}
+      36%  { clip-path: polygon(0 70%,100% 70%,100% 76%,0 76%);}
+      48%  { clip-path: polygon(0 20%,100% 20%,100% 26%,0 26%);}
+      60%  { clip-path: polygon(0 40%,100% 40%,100% 47%,0 47%);}
+      72%  { clip-path: polygon(0 60%,100% 60%,100% 66%,0 66%);}
+      84%  { clip-path: polygon(0 80%,100% 80%,100% 86%,0 86%);}
+      100% { clip-path: polygon(0 0,100% 0,100% 100%,0 100%);}
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .glitch, .glitch::before, .glitch::after {
+        animation: none !important;
+        transform: none !important;
+      }
+      .glitch::before { transform: translateX(0.5px);}
+      .glitch::after { transform: translateX(-0.5px);}
+    }
+
+    .hero-subtitle {
+      margin-top: 1.2rem;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #8cf;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 0.1em #8cf8;
+      margin-bottom: 2.2rem;
+    }
+
+    /* === Profile Picture === */
+    .profile-pic-container {
+      margin: 0 auto 2.5rem auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #8cf;
+      box-shadow: 0 0 0.5em #8cf8, 0 0 2em #18181c;
+      background: #23233a url('https://placehold.net/140x140?text=Zex42Dev') center/cover no-repeat;
+      transition: filter 0.3s;
+      aspect-ratio: 1/1;
+    }
+    .profile-pic[loading] {
+      filter: blur(4px) grayscale(0.5);
+    }
+    .profile-pic:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, transparent 60%, #8cf2 100%);
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0;
+    }
+    .profile-caption {
+      margin-top: 0.7rem;
+      font-size: 1.1rem;
+      color: #8cf;
+      opacity: 0.8;
+      letter-spacing: 0.01em;
+    }
+
+    /* === Pricing Cards Section === */
+    section.pricing {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 3rem auto 2.5rem auto;
+      max-width: 900px;
+      padding: 0 1rem;
+    }
+    .pricing-card {
+      background: linear-gradient(120deg, #23233a 60%, #2e2e4d 100%);
+      border-radius: 1.2rem;
+      box-shadow: 0 0.5em 2em #0008, 0 0 0.5em #8cf4;
+      border: 2px solid #8cf2;
+      width: 270px;
+      min-height: 260px;
+      padding: 2.2rem 1.2rem 1.5rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.3s;
+      will-change: transform;
+      animation: card-in 1.2s cubic-bezier(.68,-0.55,.27,1.55) both;
+    }
+    .pricing-card:nth-child(1) { animation-delay: 0.1s;}
+    .pricing-card:nth-child(2) { animation-delay: 0.3s;}
+    .pricing-card:nth-child(3) { animation-delay: 0.5s;}
+    @keyframes card-in {
+      0% { opacity: 0; transform: translateY(60px) scale(0.9) rotate(-3deg);}
+      80% { opacity: 1; transform: translateY(-8px) scale(1.05) rotate(2deg);}
+      100% { opacity: 1; transform: translateY(0) scale(1) rotate(0);}
+    }
+    .pricing-card:hover, .pricing-card:focus-within {
+      transform: scale(1.04) rotate(-1deg);
+      box-shadow: 0 1.2em 2.5em #8cf6, 0 0 1em #fff4;
+      z-index: 3;
+    }
+    .pricing-card .glitch-card {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.7rem;
+      letter-spacing: 0.04em;
+      position: relative;
+      text-shadow: 0 0 0.1em #8cf8;
+      text-transform: uppercase;
+      user-select: none;
+      animation: glitch-shake 1.8s steps(10, end) infinite;
+    }
+    .pricing-card .price {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: #8cf;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 0.2em #8cf8;
+      letter-spacing: 0.03em;
+    }
+    .pricing-card .desc {
+      font-size: 1.1rem;
+      color: #c3eaff;
+      opacity: 0.85;
+      margin-bottom: 1.2rem;
+      text-align: center;
+      min-height: 2.5em;
+    }
+    .pricing-card .cta-btn {
+      margin-top: auto;
+      padding: 0.7em 2.2em;
+      border-radius: 2em;
+      border: none;
+      background: linear-gradient(90deg, #8cf 60%, #00e6ff 100%);
+      color: #18181c;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 0.2em 0.8em #8cf6;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      position: relative;
+      z-index: 2;
+      outline: none;
+      animation: cta-pulse 2.5s infinite;
+    }
+    .pricing-card .cta-btn:hover, .pricing-card .cta-btn:focus {
+      background: linear-gradient(90deg, #fff 60%, #8cf 100%);
+      color: #23233a;
+      box-shadow: 0 0.4em 1.2em #8cf8;
+    }
+    @keyframes cta-pulse {
+      0%, 100% { box-shadow: 0 0.2em 0.8em #8cf6;}
+      50% { box-shadow: 0 0.6em 2em #8cfb;}
+    }
+    /* Glitchy scanlines overlay for cards */
+    .pricing-card::after {
+      content: '';
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.04) 0 2px,
+        rgba(255,255,255,0.0) 2px 4px
+      );
+      mix-blend-mode: screen;
+      opacity: 0.7;
+      z-index: 1;
+      animation: scanlines-move 2.5s linear infinite;
+    }
+    @keyframes scanlines-move {
+      0% { background-position-y: 0;}
+      100% { background-position-y: 8px;}
+    }
+
+    /* === CTA Section === */
+    section.cta {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 3rem auto 2rem auto;
+      max-width: 600px;
+      padding: 0 1rem;
+    }
+    .cta-btn-main {
+      display: inline-block;
+      padding: 1em 3em;
+      border-radius: 2em;
+      border: none;
+      background: linear-gradient(90deg, #8cf 60%, #00e6ff 100%);
+      color: #18181c;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0.4em 1.2em #8cfb;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 2;
+      animation: cta-pulse 2.5s infinite;
+    }
+    .cta-btn-main:hover, .cta-btn-main:focus {
+      background: linear-gradient(90deg, #fff 60%, #8cf 100%);
+      color: #23233a;
+      box-shadow: 0 0.6em 2em #8cfb;
+      outline: 2px solid #8cf;
+    }
+    .cta-desc {
+      color: #c3eaff;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+    }
+
+    /* === Footer === */
+    footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #8cf;
+      font-size: 1rem;
+      margin: 2.5rem 0 1rem 0;
+      opacity: 0.7;
+      letter-spacing: 0.01em;
+    }
+
+    /* === Responsive Design === */
+    @media (max-width: 900px) {
+      section.pricing {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .pricing-card {
+        width: 95vw;
+        max-width: 340px;
+      }
+    }
+    @media (max-width: 600px) {
+      .glitch {
+        font-size: 2.1rem;
+      }
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      .profile-pic {
+        width: 90px;
+        height: 90px;
+      }
+      .pricing-card {
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+      }
+      .cta-btn-main {
+        font-size: 1.05rem;
+        padding: 0.7em 1.5em;
+      }
     }
   </style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
+  <!-- Particle Background -->
+  <div id="particles-bg"></div>
 
-  <!-- HERO -->
-  <section data-aos="zoom-in" data-aos-duration="1200">
-    <h1 class="glitch">Zex42Dev</h1>
-    <p class="tagline">Reward: 42 commits of chaos</p>
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1 class="glitch" data-text="Zex42Dev">Zex42Dev</h1>
+    <div class="hero-subtitle">Web Developer & Creative Technologist</div>
+    <div class="profile-pic-container">
+      <!-- Replace the src below with your actual profile image path -->
+      <img
+        src="/assets/profile.jpg"
+        alt="Zex42Dev Profile Picture"
+        class="profile-pic"
+        width="140"
+        height="140"
+        loading="eager"
+        style="background: #23233a url('https://placehold.net/140x140?text=Zex42Dev') center/cover no-repeat;"
+      >
+      <div class="profile-caption">Hi, I'm Zex42Dev. Let's build something chaotic.</div>
+    </div>
+  </header>
 
-    <!-- Embedded SVG image ensures the picture always appears.
-         Replace the src value below with your real file path when ready,
-         for example: src="images/yourfile.png" or src="pfp.jpeg" -->
-    <img
-      class="profile-pic"
-      alt="Profile"
-      src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><defs><radialGradient id='g'><stop offset='0' stop-color='%23ff0'/><stop offset='1' stop-color='%2300ffff'/></radialGradient></defs><rect width='100%' height='100%' fill='%23000'/><g transform='translate(0,0)'><circle cx='200' cy='160' r='120' fill='url(%23g)' stroke='%2300ffff' stroke-width='6'/><text x='200' y='320' font-size='36' font-family='Orbitron,Arial' fill='%23fff' text-anchor='middle'>Zex42Dev</text></g></svg>"
-    />
-
-    <div class="info-panel" data-aos="fade-left" data-aos-duration="1200">
-      <p>👾 Chaos-driven developer. ⚡ Master of thumbnails and websites. 🌍 I build glitchy, unforgettable experiences.</p>
+  <!-- Pricing Cards -->
+  <section class="pricing" aria-label="Services and Pricing">
+    <div class="pricing-card" tabindex="0">
+      <div class="glitch-card">Websites</div>
+      <div class="price">$150</div>
+      <div class="desc">Custom, responsive websites with animated effects and modern design.</div>
+      <button class="cta-btn" aria-label="Order Website">Order</button>
+    </div>
+    <div class="pricing-card" tabindex="0">
+      <div class="glitch-card">Thumbnail + Logo</div>
+      <div class="price">$80</div>
+      <div class="desc">Eye-catching thumbnails and logos for your brand, channel, or project.</div>
+      <button class="cta-btn" aria-label="Order Thumbnail and Logo">Order</button>
+    </div>
+    <div class="pricing-card" tabindex="0">
+      <div class="glitch-card">1 Month Collaboration</div>
+      <div class="price">$200</div>
+      <div class="desc">Work with me for a month—web, design, and creative chaos included.</div>
+      <button class="cta-btn" aria-label="Start Collaboration">Start</button>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section data-aos="fade-up" data-aos-duration="1200">
-    <h2 style="font-family:Orbitron, sans-serif; color:#0ff; margin:0 0 12px;">Who Am I?</h2>
-    <p style="max-width:900px; margin:0 auto 8px;">I conjure thumbnails, craft websites, and occasionally break the internet. Advanced dev wizard at your service.</p>
-    <p style="max-width:900px; margin:0 auto 8px;">Beyond code, I design experiences that feel alive — glitchy, chaotic, and unforgettable.</p>
-  </section>
-
-  <!-- PRICES -->
-  <section data-aos="zoom-out" data-aos-duration="1200">
-    <h2 style="font-family:Orbitron, sans-serif; color:#0ff; margin:0 0 12px;">Prices</h2>
-    <div class="price-card" data-aos="flip-left">Websites Premium — $150</div>
-    <div class="price-card" data-aos="flip-right">Thumbnail + Logo — $80</div>
-    <div class="price-card" data-aos="flip-up">1 Month Collaboration — $200</div>
-  </section>
-
-  <!-- CONTACT -->
-  <section data-aos="fade-up" data-aos-duration="1200">
-    <h2 style="font-family:Orbitron, sans-serif; color:#0ff; margin:0 0 12px;">Contact</h2>
-    <div style="margin:12px 0;">
-      <a class="links" href="https://github.com/zex42dev" target="_blank" rel="noreferrer">GitHub</a>
-      <a class="links" href="mailto:folyxz@gmail.com">Email</a>
+  <!-- CTA Section -->
+  <section class="cta" aria-label="Contact">
+    <button class="cta-btn-main" onclick="window.location='mailto:zex42dev@example.com'" aria-label="Contact Zex42Dev">
+      Contact Me
+    </button>
+    <div class="cta-desc">
+      Ready to create something unique? Reach out for projects, collaborations, or just to say hi.
     </div>
   </section>
 
-  <!-- AOS and scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 Zex42Dev. Crafted with chaos and code.
+  </footer>
+
+  <!-- tsParticles Library (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
   <script>
-    AOS.init({ once:false, mirror:true });
-  </script>
+    // === Particle Background Initialization ===
+    document.addEventListener('DOMContentLoaded', function() {
+      tsParticles.load('particles-bg', {
+        fullScreen: { enable: false },
+        background: {
+          color: "#18181c"
+        },
+        fpsLimit: 60,
+        particles: {
+          number: {
+            value: 70,
+            density: { enable: true, area: 900 }
+          },
+          color: { value: ["#8cf", "#00e6ff", "#ff003c", "#fff"] },
+          shape: {
+            type: ["circle", "triangle", "edge"],
+            options: {}
+          },
+          opacity: {
+            value: 0.5,
+            random: { enable: true, minimumValue: 0.2 }
+          },
+          size: {
+            value: { min: 1.5, max: 4.5 },
+            random: { enable: true, minimumValue: 1 }
+          },
+          links: {
+            enable: true,
+            distance: 120,
+            color: "#8cf",
+            opacity: 0.25,
+            width: 1.2
+          },
+          move: {
+            enable: true,
+            speed: 1.2,
+            direction: "none",
+            random: true,
+            straight: false,
+            outModes: { default: "out" },
+            attract: { enable: false }
+          }
+        },
+        interactivity: {
+          events: {
+            onHover: { enable: true, mode: "repulse" },
+            onClick: { enable: true, mode: "push" },
+            resize: true
+          },
+          modes: {
+            repulse: { distance: 90, duration: 0.4 },
+            push: { quantity: 3 }
+          }
+        },
+        detectRetina: true
+      });
+    });
 
-  <!-- Particle script (complete) -->
-  <script>
-    (function(){
-      const canvas = document.getElementById('particles');
-      const ctx = canvas.getContext('2d');
-      function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-      window.addEventListener('resize', resize);
-      resize();
+    // === Prevent Black Screen on Load ===
+    // Ensure the background color is always visible, even before particles load
+    document.getElementById('particles-bg').style.background = '#18181c';
 
-      const N = Math.max(80, Math.floor((canvas.width * canvas.height) / 6000)); // scale with screen
-      const particles = [];
-      for(let i=0;i<N;i++){
-        particles.push({
-          x: Math.random()*canvas.width,
-          y: Math.random()*canvas.height,
-          r: Math.random()*2.2 + 0.6,
-          dx: (Math.random()-0.5)*0.8,
-          dy: (Math.random()-0.5)*0.8,
-          hue: Math.random()*360
-        });
-      }
+    // === Profile Picture Placeholder Handling ===
+    // If the profile image fails to load, fallback to a placeholder
+    const profileImg = document.querySelector('.profile-pic');
+    profileImg.addEventListener('error', function() {
+      this.src = 'https://placehold.net/140x140?text=Zex42Dev';
+      this.style.filter = 'grayscale(1) blur(1px)';
+    });
 
-      function step(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        for(const p of particles){
-          p.x += p.dx; p.y += p.dy;
-          if(p.x < -10) p.x = canvas.width + 10;
-          if(p.x > canvas.width + 10) p.x = -10;
-          if(p.y < -10) p.y = canvas.height + 10;
-          if(p.y > canvas.height + 10) p.y = -10;
+    // === Animate Pricing Cards on Scroll (optional) ===
+    // Cards animate in via CSS, but you can further enhance with JS if desired
 
-          ctx.beginPath();
-          ctx.fillStyle = 'hsla(' + (p.hue + (Date.now()/50 % 360)) + ', 90%, 55%, 0.9)';
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-          ctx.fill();
-        }
-        requestAnimationFrame(step);
-      }
-      step();
-    })();
+    // === Accessibility: Enable transitions only after load to avoid flashes ===
+    window.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('transitions-enabled');
+    });
   </script>
 </body>
 </html>
