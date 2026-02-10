@@ -7,139 +7,27 @@
   <!-- AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      background: #000;
-      color: #fff;
-      font-family: 'Rajdhani', sans-serif;
-      overflow-x: hidden;
-    }
-    canvas#particles {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-    }
-    section {
-      padding: 120px 20px;
-      text-align: center;
-      min-height: 80vh;
-    }
-    h1.glitch {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 6em;
-      color: #0ff;
-      text-shadow: 0 0 15px #0ff, 0 0 30px #f0f;
-      animation: glitch 1s infinite;
-    }
-    @keyframes glitch {
-      0% { text-shadow: 2px 2px #f0f; }
-      25% { text-shadow: -2px -2px #0ff; }
-      50% { text-shadow: 2px -2px #ff0; }
-      75% { text-shadow: -2px 2px #f0f; }
-      100% { text-shadow: 2px 2px #0ff; }
-    }
-    h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3.5em;
-      margin-bottom: 20px;
-      color: #0ff;
-      text-shadow: 0 0 15px #0ff;
-    }
-    .tagline {
-      font-size: 2.2em;
-      color: #ff0;
-      margin-top: 10px;
-      animation: flicker 2s infinite;
-    }
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-      20%, 24%, 55% { opacity: 0.3; }
-    }
-    .profile-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 40px;
-      margin-top: 40px;
-      flex-wrap: wrap;
-    }
-    .profile-pic {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      border: 4px solid #0ff;
-      box-shadow: 0 0 20px #f0f;
-      transition: transform 0.6s ease, box-shadow 0.6s ease;
-    }
-    .profile-pic:hover {
-      transform: scale(1.3) rotate(15deg);
-      box-shadow: 0 0 50px #ff0, 0 0 80px #f0f, 0 0 100px #0ff;
-      filter: hue-rotate(180deg);
-    }
-    .info-panel {
-      max-width: 400px;
-      text-align: left;
-      font-size: 1.4em;
-      line-height: 1.6em;
-      color: #fff;
-      animation: neonGlow 2s infinite alternate;
-    }
-    @keyframes neonGlow {
-      from { text-shadow: 0 0 10px #0ff; }
-      to { text-shadow: 0 0 20px #f0f, 0 0 30px #ff0; }
-    }
-    .skill, .project-card, .price-card {
-      margin: 20px;
-      padding: 20px;
-      border: 2px solid #0ff;
-      box-shadow: 0 0 10px #0ff;
-      display: inline-block;
-      font-family: 'Orbitron', sans-serif;
-      transition: transform 0.5s ease;
-      color: #fff;
-      font-size: 1.6em;
-    }
-    .skill:hover, .project-card:hover, .price-card:hover {
-      transform: scale(1.2) rotate(5deg);
-      box-shadow: 0 0 30px #f0f, 0 0 50px #ff0;
-    }
-    .price-card {
-      background: rgba(0,0,0,0.6);
-      border: 3px dashed #ff0;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    button {
-      background: #0ff;
-      border: none;
-      padding: 14px 28px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.4em;
-      color: #000;
-    }
-    button:hover {
-      background: #f0f;
-      color: #fff;
-    }
-    .links a {
-      margin: 10px;
-      color: #0ff;
-      text-decoration: none;
-      transition: color 0.3s ease;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.4em;
-    }
-    .links a:hover {
-      color: #f0f;
-    }
+    body { margin:0; background:#000; color:#fff; font-family:'Rajdhani',sans-serif; overflow-x:hidden; }
+    canvas#particles { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
+    section { padding:120px 20px; text-align:center; min-height:80vh; }
+    h1.glitch { font-family:'Press Start 2P',cursive; font-size:6em; color:#0ff; text-shadow:0 0 15px #0ff,0 0 30px #f0f; animation:glitch 1s infinite; }
+    @keyframes glitch { 0%{text-shadow:2px 2px #f0f;}25%{text-shadow:-2px -2px #0ff;}50%{text-shadow:2px -2px #ff0;}75%{text-shadow:-2px 2px #f0f;}100%{text-shadow:2px 2px #0ff;} }
+    h2 { font-family:'Orbitron',sans-serif; font-size:3.5em; margin-bottom:20px; color:#0ff; text-shadow:0 0 15px #0ff; }
+    .tagline { font-size:2.2em; color:#ff0; margin-top:10px; animation:flicker 2s infinite; }
+    @keyframes flicker {0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}20%,24%,55%{opacity:0.3;} }
+    .profile-container { display:flex; justify-content:center; align-items:center; gap:40px; margin-top:40px; flex-wrap:wrap; }
+    .profile-pic { width:220px; height:220px; border-radius:50%; border:4px solid #0ff; box-shadow:0 0 20px #f0f; transition:transform 0.6s ease, box-shadow 0.6s ease; }
+    .profile-pic:hover { transform:scale(1.3) rotate(15deg); box-shadow:0 0 50px #ff0,0 0 80px #f0f,0 0 100px #0ff; filter:hue-rotate(180deg); }
+    .info-panel { max-width:400px; text-align:left; font-size:1.4em; line-height:1.6em; color:#fff; animation:neonGlow 2s infinite alternate; }
+    @keyframes neonGlow { from{text-shadow:0 0 10px #0ff;} to{text-shadow:0 0 20px #f0f,0 0 30px #ff0;} }
+    .skill,.project-card,.price-card { margin:20px; padding:20px; border:2px solid #0ff; box-shadow:0 0 10px #0ff; display:inline-block; font-family:'Orbitron',sans-serif; transition:transform 0.5s ease; color:#fff; font-size:1.6em; }
+    .skill:hover,.project-card:hover,.price-card:hover { transform:scale(1.2) rotate(5deg); box-shadow:0 0 30px #f0f,0 0 50px #ff0; }
+    .price-card { background:rgba(0,0,0,0.6); border:3px dashed #ff0; animation:pulse 2s infinite; }
+    @keyframes pulse {0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);} }
+    button { background:#0ff; border:none; padding:14px 28px; font-weight:bold; cursor:pointer; transition:background 0.3s ease; font-family:'Orbitron',sans-serif; font-size:1.4em; color:#000; }
+    button:hover { background:#f0f; color:#fff; }
+    .links a { margin:10px; color:#0ff; text-decoration:none; transition:color 0.3s ease; font-family:'Orbitron',sans-serif; font-size:1.4em; }
+    .links a:hover { color:#f0f; }
   </style>
 </head>
 <body>
@@ -199,4 +87,25 @@
     <h2>Ask Me Anything</h2>
     <form id="messageForm">
       <label>Name:</label><br>
-      <input
+      <input type="text" id="name" placeholder="Enter your alias"><br><br>
+      <label>Message:</label><br>
+      <textarea id="message" placeholder="Type your encrypted message"></textarea><br><br>
+      <button type="submit">Send</button>
+    </form>
+    <div class="links">
+      <a href="https://github.com/zex42dev">GitHub</a>
+      <a href="https://discord.gg/E3SdzgT2Uu">Join Zex Discord</a>
+      <a href="mailto:folyxz@gmail.com">Email</a>
+    </div>
+  </section>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once:false, mirror:true });
+
+    // Particle background
+    const canvas=document.getElementById('particles');
+    const ctx=canvas.getContext('2d');
+    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+    let particles
