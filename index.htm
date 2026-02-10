@@ -7,23 +7,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Press+Start+2P&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: #000;
+      margin: 0;
+      background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
       color: #fff;
       font-family: 'Rajdhani', sans-serif;
-      margin: 0;
-      overflow: hidden;
+      overflow-x: hidden;
     }
     section {
-      padding: 60px;
+      padding: 100px 20px;
       text-align: center;
-      position: relative;
-      z-index: 2;
+      min-height: 100vh;
     }
     h1.glitch {
       font-family: 'Press Start 2P', cursive;
       font-size: 3.5em;
-      text-align: center;
-      margin-top: 60px;
       color: #0ff;
       animation: glitch 1s infinite;
     }
@@ -44,31 +42,27 @@
       0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
       20%, 24%, 55% { opacity: 0.3; }
     }
-    .skill {
-      margin: 10px;
-      padding: 15px;
-      border: 2px solid #0ff;
-      box-shadow: 0 0 10px #0ff;
-      transition: transform 0.3s ease;
-      display: inline-block;
-      font-family: 'Orbitron', sans-serif;
+    .hidden {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease;
     }
-    .skill:hover {
-      transform: scale(1.2) rotate(5deg);
-      box-shadow: 0 0 20px #f0f;
+    .show {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .project-card {
+    .skill, .project-card {
       margin: 20px;
       padding: 20px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid #f0f;
-      transition: all 0.3s ease;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 10px #0ff;
       display: inline-block;
       font-family: 'Orbitron', sans-serif;
+      transition: transform 0.5s ease;
     }
-    .project-card:hover {
-      transform: skew(-5deg) scale(1.1);
-      background: rgba(255,0,255,0.2);
+    .skill:hover, .project-card:hover {
+      transform: scale(1.2) rotate(5deg);
+      box-shadow: 0 0 20px #f0f;
     }
     button {
       background: #0ff;
@@ -82,11 +76,6 @@
     button:hover {
       background: #f0f;
     }
-    .warning {
-      color: #ff0;
-      margin-top: 20px;
-      font-style: italic;
-    }
     .links a {
       margin: 10px;
       color: #0ff;
@@ -97,32 +86,23 @@
     .links a:hover {
       color: #f0f;
     }
-    /* Particle canvas */
-    #particles {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
-    }
   </style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
-
   <!-- Hero -->
-  <section id="hero">
+  <section class="hidden" id="hero">
     <h1 class="glitch">Zex42Dev</h1>
     <p class="tagline">Reward: 42 commits of chaos</p>
   </section>
 
   <!-- About -->
-  <section id="about">
+  <section class="hidden" id="about">
     <h2>Who Am I?</h2>
     <p>I conjure thumbnails, craft websites, and occasionally break the internet. Advanced dev wizard at your service.</p>
   </section>
 
   <!-- Skills -->
-  <section id="skills">
+  <section class="hidden" id="skills">
     <h2>Skill Reactors</h2>
     <div class="skill">HTML Reactor: 100%</div>
     <div class="skill">CSS Reactor: 95%</div>
@@ -131,7 +111,7 @@
   </section>
 
   <!-- Projects -->
-  <section id="projects">
+  <section class="hidden" id="projects">
     <h2>Projects</h2>
     <div class="project-card">Cyberpunk Portfolio</div>
     <div class="project-card">Thumbnail Generator 3000</div>
@@ -139,7 +119,7 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact">
+  <section class="hidden" id="contact">
     <h2>Access Terminal</h2>
     <form onsubmit="alert('Message transmitted to Zex42Dev!'); return false;">
       <label>Name:</label><br>
@@ -148,7 +128,6 @@
       <textarea placeholder="Type your encrypted message"></textarea><br><br>
       <button type="submit">Transmit</button>
     </form>
-    <p class="warning">Unauthorized access may result in infinite loops.</p>
     <div class="links">
       <a href="https://github.com/zex42dev">GitHub</a>
       <a href="https://discord.gg/E3SdzgT2Uu">Join Zex Discord</a>
@@ -157,43 +136,15 @@
   </section>
 
   <script>
-    // Particle background
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    for (let i = 0; i < 100; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        dx: (Math.random() - 0.5) * 2,
-        dy: (Math.random() - 0.5) * 2,
-        radius: Math.random() * 3 + 1
+    // Scroll reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
       });
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = '#0ff';
-        ctx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-      });
-      requestAnimationFrame(draw);
-    }
-    draw();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
     });
+    document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
