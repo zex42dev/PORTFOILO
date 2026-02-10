@@ -23,6 +23,10 @@
       100%{text-shadow:2px 2px #0ff;}
     }
 
+    /* === TAGLINE === */
+    .tagline { font-size:2.2em; color:#ff0; margin-top:10px; animation:flicker 2s infinite; }
+    @keyframes flicker {0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}20%,24%,55%{opacity:0.3;} }
+
     /* === PROFILE PICTURE === */
     .profile-pic { width:220px; height:220px; border-radius:50%; border:4px solid #0ff;
       box-shadow:0 0 20px #f0f; margin:40px auto; transition:transform 0.6s ease, box-shadow 0.6s ease, filter 0.6s ease; }
@@ -43,6 +47,10 @@
     .skill,.project-card { margin:20px; padding:20px; border:2px solid #0ff; box-shadow:0 0 10px #0ff;
       display:inline-block; font-family:'Orbitron',sans-serif; transition:transform 0.5s ease; color:#fff; font-size:1.6em; }
     .skill:hover,.project-card:hover { transform:scale(1.2) rotate(5deg); box-shadow:0 0 30px #f0f,0 0 50px #ff0; }
+
+    /* === LINKS === */
+    .links a { margin:10px; color:#0ff; text-decoration:none; transition:color 0.3s ease; font-family:'Orbitron',sans-serif; font-size:1.4em; }
+    .links a:hover { color:#f0f; }
   </style>
 </head>
 <body>
@@ -52,6 +60,7 @@
   <section>
     <h1 class="glitch">Zex42Dev</h1>
     <p class="tagline">Reward: 42 commits of chaos</p>
+    <!-- Replace src with your actual image file -->
     <img src="your-profile-picture.jpg" alt="Profile Picture" class="profile-pic">
     <div class="info-panel">
       <p>👾 Chaos-driven developer.</p>
@@ -65,6 +74,7 @@
     <h2>Who Am I?</h2>
     <p>I conjure thumbnails, craft websites, and occasionally break the internet.</p>
     <p>Beyond code, I design experiences that feel alive — glitchy, chaotic, unforgettable.</p>
+    <p>My mission: to blend creativity with technical mastery, making every project a spectacle.</p>
   </section>
 
   <!-- PRICES -->
@@ -82,6 +92,9 @@
     <div class="skill">CSS Reactor: 95%</div>
     <div class="skill">React Core: 85%</div>
     <div class="skill">Thumbnail Sorcery: MAX</div>
+    <div class="skill">JavaScript Reactor: 90%</div>
+    <div class="skill">Node Core: 80%</div>
+    <div class="skill">UI Sorcery: 88%</div>
   </section>
 
   <!-- PROJECTS -->
@@ -92,6 +105,8 @@
     <div class="project-card">Chaos Engine Website</div>
     <div class="project-card">Neon Dashboard</div>
     <div class="project-card">Glitchy Arcade</div>
+    <div class="project-card">Particle Playground</div>
+    <div class="project-card">SchoolTool Platform</div>
   </section>
 
   <!-- CONTACT -->
@@ -116,17 +131,14 @@
     function resize(){ canvas.width=innerWidth; canvas.height=innerHeight; }
     window.addEventListener('resize',resize); resize();
     const particles=[];
-    for(let i=0;i<150;i++){
+    for(let i=0;i<200;i++){
       particles.push({
         x:Math.random()*canvas.width,
         y:Math.random()*canvas.height,
         dx:(Math.random()-0.5)*1.5,
         dy:(Math.random()-0.5)*1.5,
-        r:Math.random()*2+1
+        r:Math.random()*2+1,
+        hue:Math.random()*360
       });
     }
-    function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particles.forEach(p=>{
-        ctx.beginPath();
-        ctx.arc
+    function draw
