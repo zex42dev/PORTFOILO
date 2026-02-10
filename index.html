@@ -21,15 +21,15 @@
       z-index: -1;
     }
     section {
-      padding: 100px 20px;
+      padding: 120px 20px;
       text-align: center;
       min-height: 80vh;
     }
     h1.glitch {
       font-family: 'Press Start 2P', cursive;
-      font-size: 5em; /* bigger */
+      font-size: 6em; /* bigger */
       color: #0ff;
-      text-shadow: 0 0 10px #0ff, 0 0 20px #f0f;
+      text-shadow: 0 0 15px #0ff, 0 0 30px #f0f;
       animation: glitch 1s infinite;
     }
     @keyframes glitch {
@@ -41,13 +41,13 @@
     }
     h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 3em; /* bigger */
+      font-size: 3.5em; /* bigger */
       margin-bottom: 20px;
       color: #0ff;
-      text-shadow: 0 0 10px #0ff;
+      text-shadow: 0 0 15px #0ff;
     }
     .tagline {
-      font-size: 2em; /* bigger */
+      font-size: 2.2em; /* bigger */
       color: #ff0;
       margin-top: 10px;
       animation: flicker 2s infinite;
@@ -65,7 +65,7 @@
       font-family: 'Orbitron', sans-serif;
       transition: transform 0.5s ease;
       color: #fff;
-      font-size: 1.5em;
+      font-size: 1.6em;
     }
     .skill:hover, .project-card:hover {
       transform: scale(1.2) rotate(5deg);
@@ -74,12 +74,12 @@
     button {
       background: #0ff;
       border: none;
-      padding: 12px 24px;
+      padding: 14px 28px;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s ease;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.2em;
+      font-size: 1.4em;
       color: #000;
     }
     button:hover {
@@ -92,7 +92,7 @@
       text-decoration: none;
       transition: color 0.3s ease;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.2em;
+      font-size: 1.4em;
     }
     .links a:hover {
       color: #f0f;
@@ -103,7 +103,7 @@
   <canvas id="particles"></canvas>
 
   <!-- Hero -->
-  <section data-aos="zoom-in">
+  <section data-aos="zoom-in" data-aos-duration="1500">
     <h1 class="glitch">Zex42Dev</h1>
     <p class="tagline">Reward: 42 commits of chaos</p>
   </section>
@@ -112,6 +112,7 @@
   <section data-aos="fade-up" data-aos-duration="1500">
     <h2>Who Am I?</h2>
     <p>I conjure thumbnails, craft websites, and occasionally break the internet. Advanced dev wizard at your service.</p>
+    <p>Beyond code, I design experiences that feel alive — glitchy, chaotic, and unforgettable.</p>
   </section>
 
   <!-- Skills -->
@@ -121,6 +122,7 @@
     <div class="skill">CSS Reactor: 95%</div>
     <div class="skill">React Core: 85%</div>
     <div class="skill">Thumbnail Sorcery: MAX</div>
+    <p>Each skill is not just a tool — it’s a reactor core powering my creative chaos.</p>
   </section>
 
   <!-- Projects -->
@@ -129,6 +131,7 @@
     <div class="project-card">Cyberpunk Portfolio</div>
     <div class="project-card">Thumbnail Generator 3000</div>
     <div class="project-card">Chaos Engine Website</div>
+    <p>Every project is a glitch in the matrix — bending rules, breaking patterns, and sparking new ideas.</p>
   </section>
 
   <!-- Contact -->
@@ -151,7 +154,10 @@
   <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init();
+    AOS.init({
+      once: false, // animations trigger both down and up
+      mirror: true // crazy animations also when scrolling back up
+    });
 
     // Particle background
     const canvas = document.getElementById('particles');
