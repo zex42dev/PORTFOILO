@@ -15,13 +15,15 @@
       overflow-x: hidden;
     }
     section {
-      padding: 100px 20px;
+      padding: 120px 20px;
       text-align: center;
       min-height: 100vh;
+      background: rgba(0,0,0,0.6); /* overlay so text is readable */
+      margin: 0;
     }
     h1.glitch {
       font-family: 'Press Start 2P', cursive;
-      font-size: 3.5em;
+      font-size: 4em; /* bigger hero font */
       color: #0ff;
       animation: glitch 1s infinite;
     }
@@ -32,8 +34,13 @@
       75% { text-shadow: -2px 2px #f0f; }
       100% { text-shadow: 2px 2px #0ff; }
     }
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5em; /* bigger section titles */
+      margin-bottom: 20px;
+    }
     .tagline {
-      font-size: 1.5em;
+      font-size: 1.8em;
       color: #ff0;
       margin-top: 10px;
       animation: flicker 2s infinite;
@@ -44,7 +51,7 @@
     }
     .hidden {
       opacity: 0;
-      transform: translateY(50px);
+      transform: translateY(60px);
       transition: all 1s ease;
     }
     .show {
@@ -67,11 +74,12 @@
     button {
       background: #0ff;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 24px;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s ease;
       font-family: 'Orbitron', sans-serif;
+      font-size: 1.2em;
     }
     button:hover {
       background: #f0f;
@@ -82,6 +90,7 @@
       text-decoration: none;
       transition: color 0.3s ease;
       font-family: 'Orbitron', sans-serif;
+      font-size: 1.2em;
     }
     .links a:hover {
       color: #f0f;
